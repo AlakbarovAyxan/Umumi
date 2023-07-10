@@ -1,0 +1,169 @@
+#region MassivStack
+namespace MassivStack
+{
+    class Umumi
+    {
+        public static int[] Stek { get; set; } = new int[12];
+        public static int swap = 0;
+        public static int g = 0;
+        public static int USteGel = 0;
+        static void Main()
+        {
+            ElaveEt(1);
+            ElaveEt(2);
+            ElaveEt(3);
+            ElaveEt(4);
+            ElaveEt(5);
+            ElaveEt(6);
+            ElaveEt(7);
+            ElaveEt(8);
+            YuxariCek();
+            Show();
+            Console.WriteLine("=======================================");
+            Sil();
+            Sil();
+            Show();
+
+        }
+
+        //Stek[Stek.Length]!=null  => lazimli
+
+        public static void ElaveEt(int Elave)
+        {
+
+            if (Stek[0] != null)
+            {
+                for (g = 0; g < Stek.Length; g++)
+                {
+
+                    if (g == 0)
+                    {
+                        swap = Stek[Stek.Length - 1];
+                        Stek[Stek.Length - 1] = Elave;
+                        Elave = swap;
+                        swap = 0;
+
+                    }
+
+
+
+                    if (g != 0 && g != Stek.Length - 1)
+                    {
+                        swap = Stek[g];
+                        Stek[g] = Stek[Stek.Length - 1];
+                        Stek[Stek.Length - 1] = swap;
+                        swap = 0;
+
+
+                    }
+
+                }
+            }
+            else
+            {
+                Stek[0] = Elave;
+            }
+
+
+
+
+        }
+
+        public static void YuxariCek()
+        {
+            swap = 0;
+            if (Stek[0] == 0)
+            {
+                for (int i = 0; i < Stek.Length - 1; i++)
+                {
+                    swap = Stek[i];
+                    Stek[i] = Stek[i + 1];
+                    Stek[i + 1] = swap;
+                }
+            }
+        }
+
+        public static void Sil()
+        {
+            Stek[0] = 0;
+            YuxariCek();
+        }
+
+        public static void Show()
+        {
+
+            for (int i = 0; i < Stek.Length; i++)
+            {
+                if (Stek[i] != 0)
+                {
+                    Console.WriteLine(Stek[i]);
+                }
+
+            }
+        }
+    }
+
+}
+#endregion
+#region MassivQueue
+namespace MassivQueue
+{
+    class umumi
+    {
+        public static object[] kuyu { get; set; } = new object[10];
+
+        static void Main()
+        {
+            Stack stack = new Stack();
+
+
+
+            ElaveEt(1);
+            ElaveEt(2);
+            ElaveEt(3);
+            ElaveEt("salam");
+            ElaveEt(5);
+            ElaveEt(6);
+            Show();
+            Console.WriteLine("=====================");
+            Sil();
+            Show();
+            Console.WriteLine("=====================");
+            Sil();
+            Show();
+        }
+        public static void ElaveEt(object Element)
+        {
+            for (int i = 0; i < kuyu.Length; i++)
+            {
+
+                if (kuyu[i] == null)
+                {
+                    kuyu[i] = Element;
+                    break;
+                }
+            }
+        }
+
+        public static void Sil()
+        {
+            for (int i = 0; i < kuyu.Length; i++)
+            {
+                if (kuyu[i] != null)
+                {
+                    kuyu[i] = null;
+                    return;
+                }
+            }
+        }
+        public static void Show()
+        {
+            for (int i = 0; i < kuyu.Length; i++)
+            {
+                Console.WriteLine(kuyu[i]);
+
+            }
+        }
+    }
+}
+#endregion
