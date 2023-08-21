@@ -1,0 +1,83 @@
+Signup
+
+//3 dənə textbox qoy onlara name ver, bir dənə də SignUp butonu
+//Table yarat meselen
+
+CREATE TABLE UserRegistration (
+  Id int identity Primary Key,
+  RegUsername nvarchar(50),
+  RegEmail nvarchar(60),
+  RegPassword nvarchar(100)
+)
+
+//Butona kliklə
+
+//AppDatabaseEntities - Menim model yaradanda olan database adı
+
+private async void signupBtn_Click(object sender, EventArgs e)
+        {
+    using (AppDatabaseEntities dbcontext = new AppDatabaseEntities())
+         
+                UserRegistration registration = new UserRegistration
+                {
+                    RegUsername = username.Text.Trim(),
+                    RegPassword = PasswordHash(password.Text.Trim()),
+                    RegEmail = email.Text.Trim()
+                    
+                };
+                dbcontext.UserRegistrations.Add(registration);
+                await dbcontext.SaveChangesAsync();
+            }
+            login.Hide();
+            
+        }
+        private string PasswordHash(string pass)
+        {
+            var data = System.Text.Encoding.ASCII.GetBytes(pass);
+            data = 	System.Security.Cryptography.MD5.Create().ComputeHash(data);
+            return Convert.ToBase64String(data);
+        }
+
+//Login formu aç 2 textbox qoy ve ad ver
+//Bu da Signupdan yaratdigin hesabi girmek ucun login
+
+private void loginBtn_Click(object sender, EventArgs e)
+        {
+            string AdminUsername = "ayxan";
+            string AdminPassword = "admin123";
+
+  using(AppDatabaseEntities dbcontext = new AppDatabaseEntities())
+            {
+                string UserName = Username.Text.Trim();
+                string PassWord = PasswordHash(Password.Text.Trim());
+
+                var user = dbcontext.UserRegistrations.FirstOrDefault
+                    (
+         s => s.RegUsername == UserName && s.RegPassword == PassWord
+                    );
+
+                if(user!= null)
+                {
+                    MessageBox.Show("Found this user!", "Netice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (AdminUsername == this.Username.Text.Trim() && AdminPassword == this.Password.Text.Trim())
+                {
+
+                    
+                    Dashboard dashboard = new Dashboard(this);
+                    dashboard.Show();
+
+                }
+                else
+                {
+                    MessageBox.Show("The user couldn't be found!", "DialogResult", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+            }
+            
+        }
+        private string PasswordHash(string pass)
+        {
+            var data = System.Text.Encoding.ASCII.GetBytes(pass);
+            data = System.Security.Cryptography.MD5.Create().ComputeHash(data);
+            return Convert.ToBase64String(data);
+        }
