@@ -1,0 +1,52 @@
+namespace Pattern
+{
+    //singleton yazilis
+    public class program
+    {
+        private static program _instance;
+        private program() { }
+
+        public static program _Istance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new program();
+                }
+                return _instance;
+            }
+        }
+    }
+    //abstact yasilis
+
+    public abstract class Pc_Program
+    {
+        public abstract void Code();
+    }
+    public class Phon_Program : Pc_Program
+    {
+        public override void Code()
+        {
+            Console.WriteLine("bura yaza bilerik");
+        }
+    }
+
+    // observe diseign
+    public interface Observe 
+    {
+        void Mehsul_Say(int say);
+    }
+    public class Observe2 : Observe
+    {
+       private string name;
+        public Observe2(string name)
+        {
+            this.name = name;
+        }
+        public void Mehsul_Say(int say)
+        {
+            Console.WriteLine($"{name} adli mehsul {say} qederdir");
+        }
+    }
+}
